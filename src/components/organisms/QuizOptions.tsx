@@ -1,6 +1,6 @@
 import { InputNumber } from 'components/atoms/InputNumber';
-import { Label } from 'components/atoms/Label';
 import { SelectItems } from 'components/atoms/SelectItems';
+import { InputForm } from 'components/molecules/InputForm';
 
 interface Props {
     readonly categories: ReadonlyArray<{ value: string; label: string }>;
@@ -9,17 +9,11 @@ interface Props {
 
 export const QuizOptions = ({ categories, difficulties }: Props) => (
     <div>
-        <div>
-            <Label text="Category" />
-            <SelectItems items={categories} />
-        </div>
-        <div>
-            <Label text="Problem Counts" />
-            <InputNumber value="10" onChange={console.log} />
-        </div>
-        <div>
-            <Label text="Difficulty" />
-            <SelectItems items={difficulties} />
-        </div>
+        <InputForm label="Category" inputType={<SelectItems items={categories} />} />
+        <InputForm
+            label="Problems Count"
+            inputType={<InputNumber value="10" onChange={console.log} />}
+        />
+        <InputForm label="Difficulty" inputType={<SelectItems items={difficulties} />} />
     </div>
 );
