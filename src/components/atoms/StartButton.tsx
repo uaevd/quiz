@@ -22,10 +22,7 @@ const Button = styled.button`
 `;
 
 interface Props {
-    readonly label: string;
     readonly onClick?: () => void;
 }
 
-export const StartButton = ({ label, onClick }: Props) => (
-    <Button onClick={onClick}>{label}</Button>
-);
+export const StartButton = ({ onClick }: Props) => <Button onClick={onClick}>Start Game</Button>;

@@ -34,7 +34,7 @@ export const QuizSetup = ({ categories, difficulties }: Props) => (
     <Container>
         <Contents>
             <QuizOptions categories={categories} difficulties={difficulties} />
-            <StartButton label="Play Game" />
+            <StartButton />
         </Contents>
     </Container>
 );
