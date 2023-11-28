@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-const Container = styled.button`
+const Button = styled.button`
     background-color: #1c1917;
     border: none;
     border-radius: 8px;
@@ -26,6 +26,6 @@ interface Props {
     readonly onClick?: () => void;
 }
 
-export const Button = ({ label, onClick }: Props) => (
-    <Container onClick={onClick}>{label}</Container>
+export const StartButton = ({ label, onClick }: Props) => (
+    <Button onClick={onClick}>{label}</Button>
 );

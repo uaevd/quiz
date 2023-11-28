@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { Button } from 'components/atoms/Button';
+import { StartButton } from 'components/atoms/StartButton';
 import { QuizOptions } from 'components/organisms/QuizOptions';
 
 const Container = styled.div`
@@ -34,7 +34,7 @@ export const QuizSetup = ({ categories, difficulties }: Props) => (
     <Container>
         <Contents>
             <QuizOptions categories={categories} difficulties={difficulties} />
-            <Button label="Play Game" />
+            <StartButton label="Play Game" />
         </Contents>
     </Container>
 );
