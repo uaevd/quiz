@@ -3,6 +3,6 @@ interface Props {
     readonly onChange: (value: string) => void;
 }
 
-export const Input = ({ value, onChange }: Props) => (
+export const InputNumber = ({ value, onChange }: Props) => (
     <input type="number" value={value} onChange={(e) => onChange(e.target.value)} />
 );

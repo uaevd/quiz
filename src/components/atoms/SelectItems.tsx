@@ -1,10 +1,10 @@
 interface Props {
-    readonly options: ReadonlyArray<{ value: string; label: string }>;
+    readonly items: ReadonlyArray<{ value: string; label: string }>;
 }
 
-export const Select = ({ options }: Props) => (
+export const SelectItems = ({ items }: Props) => (
     <select>
-        {options.map(({ value, label }) => (
+        {items.map(({ value, label }) => (
             <option key={`option-${value}`} value={value}>
                 {label}
             </option>
