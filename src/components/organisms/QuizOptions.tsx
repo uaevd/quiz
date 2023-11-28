@@ -19,8 +19,14 @@ interface Props {
 
 export const QuizOptions = ({ categories, difficulties }: Props) => (
     <Container>
-        <InputForm label="Category" inputType={<SelectItems items={categories} />} />
-        <InputForm label="Difficulty" inputType={<SelectItems items={difficulties} />} />
+        <InputForm
+            label="Category"
+            inputType={<SelectItems items={categories} onChange={console.log} />}
+        />
+        <InputForm
+            label="Difficulty"
+            inputType={<SelectItems items={difficulties} onChange={console.log} />}
+        />
         <InputForm
             label="Problem Count"
             inputType={<InputNumber value="10" onChange={console.log} />}

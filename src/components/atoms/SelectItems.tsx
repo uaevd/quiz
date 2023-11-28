@@ -10,11 +10,13 @@ const Select = styled.select`
 `;
 
 interface Props {
+    readonly disabled?: boolean;
     readonly items: ReadonlyArray<OptionItem>;
+    readonly onChange: (value: string) => void;
 }
 
-export const SelectItems = ({ items }: Props) => (
-    <Select>
+export const SelectItems = ({ disabled = false, items, onChange }: Props) => (
+    <Select disabled={disabled} onChange={(e) => onChange(e.target.value)}>
         {items.map(({ value, label }) => (
             <option key={`option-${value}`} value={value}>
                 {label}
