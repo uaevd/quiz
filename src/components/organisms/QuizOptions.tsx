@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 import { InputNumber } from 'components/atoms/InputNumber';
 import { SelectItems } from 'components/atoms/SelectItems';
 import { InputForm } from 'components/molecules/InputForm';
+import { OptionItem } from 'types/OptionItem';
 
 const Container = styled.div`
     display: flex;
@@ -12,8 +13,8 @@ const Container = styled.div`
 `;
 
 interface Props {
-    readonly categories: ReadonlyArray<{ value: string; label: string }>;
-    readonly difficulties: ReadonlyArray<{ value: string; label: string }>;
+    readonly categories: ReadonlyArray<OptionItem>;
+    readonly difficulties: ReadonlyArray<OptionItem>;
 }
 
 export const QuizOptions = ({ categories, difficulties }: Props) => (

@@ -2,6 +2,7 @@ import styled from '@emotion/styled';
 
 import { StartButton } from 'components/atoms/StartButton';
 import { QuizOptions } from 'components/organisms/QuizOptions';
+import { OptionItem } from 'types/OptionItem';
 
 const Container = styled.div`
     align-items: center;
@@ -26,8 +27,8 @@ const Contents = styled.div`
 `;
 
 interface Props {
-    readonly categories: ReadonlyArray<{ value: string; label: string }>;
-    readonly difficulties: ReadonlyArray<{ value: string; label: string }>;
+    readonly categories: ReadonlyArray<OptionItem>;
+    readonly difficulties: ReadonlyArray<OptionItem>;
 }
 
 export const QuizSetup = ({ categories, difficulties }: Props) => (
