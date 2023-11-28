@@ -1,4 +1,10 @@
+import styled from '@emotion/styled';
+
 import { Label } from 'components/atoms/Label';
+
+const Container = styled.div`
+    margin: 10px;
+`;
 
 interface Props {
     readonly label: string;
@@ -6,8 +12,8 @@ interface Props {
 }
 
 export const InputForm = ({ label, inputType }: Props) => (
-    <div>
+    <Container>
         <Label text={label} />
         {inputType}
-    </div>
+    </Container>
 );
