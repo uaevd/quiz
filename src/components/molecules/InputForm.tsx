@@ -8,12 +8,12 @@ const Container = styled.div`
 
 interface Props {
     readonly label: string;
-    readonly inputType: JSX.Element;
+    readonly inputElement: JSX.Element;
 }
 
-export const InputForm = ({ label, inputType }: Props) => (
+export const InputForm = ({ label, inputElement }: Props) => (
     <Container>
         <Label text={label} />
-        {inputType}
+        {inputElement}
     </Container>
 );
