@@ -13,5 +13,5 @@ interface Props {
 }
 
 export const InputNumber = ({ value, onChange }: Props) => (
-    <Input type="number" value={value} onChange={(e) => onChange(e.target.value)} />
+    <Input min="0" type="number" value={value} onChange={(e) => onChange(e.target.value)} />
 );
