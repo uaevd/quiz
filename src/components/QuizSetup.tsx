@@ -3,20 +3,25 @@ import { Input } from 'components/Input';
 import { Label } from 'components/Label';
 import { Select } from 'components/Select';
 
-export const QuizSetup = () => (
+interface Props {
+    readonly categories: ReadonlyArray<{ value: string; label: string }>;
+    readonly difficulties: ReadonlyArray<{ value: string; label: string }>;
+}
+
+export const QuizSetup = ({ categories, difficulties }: Props) => (
     <div>
         <div>
-            <Label />
-            <Select />
+            <Label text="Category" />
+            <Select options={categories} />
         </div>
         <div>
-            <Label />
-            <Input />
+            <Label text="Problem Counts" />
+            <Input value="10" onChange={console.log} />
         </div>
         <div>
-            <Label />
-            <Select />
+            <Label text="Difficulty" />
+            <Select options={difficulties} />
         </div>
-        <Button />
+        <Button label="Play Game" />
     </div>
 );
