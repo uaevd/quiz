@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import styled from '@emotion/styled';
 
-import { InputNumber } from 'components/atoms/InputNumber';
+import { NumberInput } from 'components/atoms/NumberInput';
 import { SelectItems } from 'components/atoms/SelectItems';
 import { StartButton } from 'components/atoms/StartButton';
 import { InputForm } from 'components/molecules/InputForm';
@@ -56,7 +56,7 @@ export const QuizOptions = () => {
             <InputForm
                 label={`Problem Count (Max: ${maxProblemCount || 'Loading...'})`}
                 inputElement={
-                    <InputNumber
+                    <NumberInput
                         value={String(quizSetupQueries.problemCount)}
                         onChange={(value) => onProblemCountChange(value ? parseInt(value) : 0)}
                     />
