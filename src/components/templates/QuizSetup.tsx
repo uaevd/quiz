@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
 
 import { QuizOptions } from 'components/organisms/QuizOptions';
-import { OptionItem } from 'types/OptionItem';
 
 const Container = styled.div`
     align-items: center;
@@ -12,13 +11,8 @@ const Container = styled.div`
     justify-content: center;
 `;
 
-interface Props {
-    readonly categories: ReadonlyArray<OptionItem>;
-    readonly difficulties: ReadonlyArray<OptionItem>;
-}
-
-export const QuizSetup = ({ categories, difficulties }: Props) => (
+export const QuizSetup = () => (
     <Container>
-        <QuizOptions categories={categories} difficulties={difficulties} />
+        <QuizOptions />
     </Container>
 );

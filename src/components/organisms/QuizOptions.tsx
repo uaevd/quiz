@@ -1,10 +1,11 @@
+import { useContext } from 'react';
 import styled from '@emotion/styled';
 
 import { InputNumber } from 'components/atoms/InputNumber';
 import { SelectItems } from 'components/atoms/SelectItems';
 import { StartButton } from 'components/atoms/StartButton';
 import { InputForm } from 'components/molecules/InputForm';
-import { OptionItem } from 'types/OptionItem';
+import { QuizSetupContext } from 'contexts/QuizSetupContext';
 
 const Container = styled.div`
     align-items: stretch;
@@ -19,25 +20,49 @@ const Container = styled.div`
     padding: 40px;
 `;
 
-interface Props {
-    readonly categories: ReadonlyArray<OptionItem>;
-    readonly difficulties: ReadonlyArray<OptionItem>;
-}
+export const QuizOptions = () => {
+    const {
+        categories,
+        difficulties,
+        maxProblemCount,
+        quizSetupQueries,
+        onCategoryChange,
+        onDifficultyChange,
+        onProblemCountChange,
+    } = useContext(QuizSetupContext);
 
-export const QuizOptions = ({ categories, difficulties }: Props) => (
-    <Container>
-        <InputForm
-            label="Category"
-            inputElement={<SelectItems items={categories} onChange={console.log} />}
-        />
-        <InputForm
-            label="Difficulty"
-            inputElement={<SelectItems items={difficulties} onChange={console.log} />}
-        />
-        <InputForm
-            label="Problem Count"
-            inputElement={<InputNumber value="10" onChange={console.log} />}
-        />
-        <StartButton />
-    </Container>
-);
+    return (
+        <Container>
+            <InputForm
+                label="Category"
+                inputElement={
+                    <SelectItems
+                        items={categories}
+                        disabled={!categories.length}
+                        onChange={onCategoryChange}
+                    />
+                }
+            />
+            <InputForm
+                label="Difficulty"
+                inputElement={
+                    <SelectItems
+                        items={difficulties}
+                        disabled={!difficulties.length}
+                        onChange={onDifficultyChange}
+                    />
+                }
+            />
+            <InputForm
+                label={`Problem Count (Max: ${maxProblemCount || 'Loading...'})`}
+                inputElement={
+                    <InputNumber
+                        value={String(quizSetupQueries.problemCount)}
+                        onChange={(value) => onProblemCountChange(value ? parseInt(value) : 0)}
+                    />
+                }
+            />
+            <StartButton />
+        </Container>
+    );
+};
