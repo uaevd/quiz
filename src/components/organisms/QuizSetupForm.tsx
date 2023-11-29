@@ -1,10 +1,10 @@
 import { useContext } from 'react';
 import styled from '@emotion/styled';
 
+import { Label } from 'components/atoms/Label';
 import { NumberInput } from 'components/atoms/NumberInput';
 import { SelectItems } from 'components/atoms/SelectItems';
 import { StartButton } from 'components/atoms/StartButton';
-import { InputForm } from 'components/molecules/InputForm';
 import { QuizSetupContext } from 'contexts/QuizSetupContext';
 
 const Container = styled.div`
@@ -20,6 +20,10 @@ const Container = styled.div`
     padding: 40px;
 `;
 
+const InputGroup = styled.div`
+    margin: 10px;
+`;
+
 export const QuizSetupForm = () => {
     const {
         categories,
@@ -33,35 +37,29 @@ export const QuizSetupForm = () => {
 
     return (
         <Container>
-            <InputForm
-                label="Category"
-                inputElement={
-                    <SelectItems
-                        items={categories}
-                        disabled={!categories.length}
-                        onChange={onCategoryChange}
-                    />
-                }
-            />
-            <InputForm
-                label="Difficulty"
-                inputElement={
-                    <SelectItems
-                        items={difficulties}
-                        disabled={!difficulties.length}
-                        onChange={onDifficultyChange}
-                    />
-                }
-            />
-            <InputForm
-                label={`Problem Count (Max: ${maxProblemCount || 'Loading...'})`}
-                inputElement={
-                    <NumberInput
-                        value={String(quizSetupQueries.problemCount)}
-                        onChange={(value) => onProblemCountChange(value ? parseInt(value) : 0)}
-                    />
-                }
-            />
+            <InputGroup>
+                <Label text="Category" />
+                <SelectItems
+                    items={categories}
+                    disabled={!categories.length}
+                    onChange={onCategoryChange}
+                />
+            </InputGroup>
+            <InputGroup>
+                <Label text="Difficulty" />
+                <SelectItems
+                    items={difficulties}
+                    disabled={!difficulties.length}
+                    onChange={onDifficultyChange}
+                />
+            </InputGroup>
+            <InputGroup>
+                <Label text={`Problem Count (Max: ${maxProblemCount || 'Loading...'})`} />
+                <NumberInput
+                    value={String(quizSetupQueries.problemCount)}
+                    onChange={(value) => onProblemCountChange(value ? parseInt(value) : 0)}
+                />
+            </InputGroup>
             <StartButton />
         </Container>
     );
