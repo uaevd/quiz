@@ -55,10 +55,17 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
     useEffect(() => {
         fetch('https://opentdb.com/api_category.php')
             .then((response) => response.json())
-            .then((json) => json.trivia_categories)
+            .then(
+                (json: {
+                    trivia_categories: ReadonlyArray<{
+                        id: number;
+                        name: string;
+                    }>;
+                }) => json.trivia_categories,
+            )
             .then((array) =>
                 array.map(
-                    ({ id, name }: { id: number; name: string }): OptionItem => ({
+                    ({ id, name }): OptionItem => ({
                         value: String(id),
                         label: name,
                     }),
@@ -72,7 +79,17 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
         if (quizSetupQueries.category) {
             fetch(`https://opentdb.com/api_count.php?category=${quizSetupQueries.category}`)
                 .then((response) => response.json())
-                .then((json) => json.category_question_count)
+                .then(
+                    (json: {
+                        category_id: number;
+                        category_question_count: {
+                            total_question_count: number;
+                            total_easy_question_count: number;
+                            total_medium_question_count: number;
+                            total_hard_question_count: number;
+                        };
+                    }) => json.category_question_count,
+                )
                 .then((counts) => {
                     switch (quizSetupQueries.difficulty) {
                         case '':
@@ -83,6 +100,8 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
                             return counts.total_medium_question_count;
                         case 'hard':
                             return counts.total_hard_question_count;
+                        default:
+                            throw Error('Invalid Difficulty');
                     }
                 })
                 .then((count) => setMaxProblemCount(Math.min(count, 50)))
