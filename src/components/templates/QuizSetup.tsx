@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { QuizOptions } from 'components/organisms/QuizOptions';
+import { QuizSetupForm } from 'components/organisms/QuizSetupForm';
 
 const Container = styled.div`
     align-items: center;
@@ -13,6 +13,6 @@ const Container = styled.div`
 
 export const QuizSetup = () => (
     <Container>
-        <QuizOptions />
+        <QuizSetupForm />
     </Container>
 );

@@ -20,7 +20,7 @@ const Container = styled.div`
     padding: 40px;
 `;
 
-export const QuizOptions = () => {
+export const QuizSetupForm = () => {
     const {
         categories,
         difficulties,
