@@ -57,6 +57,7 @@ export const QuizSetupForm = () => {
                 <Label text={`Problem Count (Max: ${maxProblemCount || 'Loading...'})`} />
                 <NumberInput
                     value={String(quizSetupQueries.problemCount)}
+                    disabled={!maxProblemCount}
                     onChange={(value) => onProblemCountChange(value ? parseInt(value) : 0)}
                 />
             </InputGroup>
