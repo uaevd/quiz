@@ -1,8 +1,8 @@
 import { QuizSetup } from 'components/templates/QuizSetup';
+import { QuizSetupContextProvider } from 'contexts/QuizSetupContext';
 
 export const QuizSetupPage = () => (
-    <QuizSetup
-        categories={[{ value: '', label: 'Any' }]}
-        difficulties={[{ value: '', label: 'Any' }]}
-    />
+    <QuizSetupContextProvider>
+        <QuizSetup />
+    </QuizSetupContextProvider>
 );

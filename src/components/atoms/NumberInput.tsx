@@ -8,10 +8,16 @@ const Input = styled.input`
 `;
 
 interface Props {
+    readonly disabled?: boolean;
     readonly value: string;
     readonly onChange: (value: string) => void;
 }
 
-export const InputNumber = ({ value, onChange }: Props) => (
-    <Input min="0" type="number" value={value} onChange={(e) => onChange(e.target.value)} />
+export const NumberInput = ({ disabled = false, value, onChange }: Props) => (
+    <Input
+        type="number"
+        disabled={disabled}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+    />
 );
