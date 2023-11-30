@@ -1,35 +1,38 @@
 import { useState, useEffect, createContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { OptionItem } from 'types/OptionItem';
 
 interface Context {
     readonly categories: ReadonlyArray<OptionItem>;
     readonly difficulties: ReadonlyArray<OptionItem>;
-    readonly maxProblemCount: number;
+    readonly maxProblems: number;
     readonly quizSetupQueries: {
         readonly category: string;
         readonly difficulty: string;
-        readonly problemCount: number;
+        readonly problems: number;
     };
 
     readonly onCategoryChange: (value: string) => void;
     readonly onDifficultyChange: (value: string) => void;
-    readonly onProblemCountChange: (value: number) => void;
+    readonly onProblemsChange: (value: number) => void;
+    readonly onGameStart: () => void;
 }
 
 export const QuizSetupContext = createContext<Context>({
     categories: [],
     difficulties: [],
-    maxProblemCount: 0,
+    maxProblems: 0,
     quizSetupQueries: {
         category: '',
         difficulty: '',
-        problemCount: 0,
+        problems: 0,
     },
     /* eslint-disable @typescript-eslint/no-empty-function */
     onCategoryChange: () => {},
     onDifficultyChange: () => {},
-    onProblemCountChange: () => {},
+    onProblemsChange: () => {},
+    onGameStart: () => {},
     /* eslint-enable @typescript-eslint/no-empty-function */
 });
 
@@ -38,6 +41,8 @@ interface Props {
 }
 
 export const QuizSetupContextProvider = ({ children }: Props) => {
+    const navigate = useNavigate();
+
     const [categories, setCategories] = useState<ReadonlyArray<OptionItem>>([]);
     const difficulties = [
         { value: '', label: 'Any' },
@@ -45,11 +50,11 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
         { value: 'medium', label: 'Medium' },
         { value: 'hard', label: 'Hard' },
     ];
-    const [maxProblemCount, setMaxProblemCount] = useState(0);
+    const [maxProblems, setMaxProblems] = useState(0);
     const [quizSetupQueries, setQuizSetupQueries] = useState({
         category: '',
         difficulty: '',
-        problemCount: 0,
+        problems: 0,
     });
 
     useEffect(() => {
@@ -104,31 +109,45 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
                             throw Error('Invalid Difficulty');
                     }
                 })
-                .then((count) => setMaxProblemCount(Math.min(count, 50)))
+                .then((count) => setMaxProblems(Math.min(count, 50)))
                 .catch((error) => console.error(error));
         } else {
-            setMaxProblemCount(50);
+            setMaxProblems(50);
         }
-        return () => setMaxProblemCount(0);
+        return () => setMaxProblems(0);
     }, [quizSetupQueries.category, quizSetupQueries.difficulty]);
 
     const onCategoryChange = (value: string) =>
         setQuizSetupQueries({ ...quizSetupQueries, category: value });
     const onDifficultyChange = (value: string) =>
         setQuizSetupQueries({ ...quizSetupQueries, difficulty: value });
-    const onProblemCountChange = (value: number) =>
-        setQuizSetupQueries({ ...quizSetupQueries, problemCount: value });
+    const onProblemsChange = (value: number) =>
+        setQuizSetupQueries({ ...quizSetupQueries, problems: value });
+    const onGameStart = () => {
+        const { category, difficulty, problems } = quizSetupQueries;
+        if (problems <= 0 || problems > maxProblems) {
+            alert(`Problems Must Be from 1 to ${maxProblems}`);
+            return;
+        }
+        const params = new URLSearchParams();
+        params.set('problems', String(problems));
+        if (category) params.set('category', category);
+        if (difficulty) params.set('difficulty', difficulty);
+
+        navigate(`/game?${params.toString()}`);
+    };
 
     return (
         <QuizSetupContext.Provider
             value={{
                 categories,
                 difficulties,
-                maxProblemCount,
+                maxProblems,
                 quizSetupQueries,
                 onCategoryChange,
                 onDifficultyChange,
-                onProblemCountChange,
+                onProblemsChange,
+                onGameStart,
             }}
         >
             {children}

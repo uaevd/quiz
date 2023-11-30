@@ -20,7 +20,7 @@ const Container = styled.div`
     padding: 40px;
 `;
 
-const InputGroup = styled.div`
+const InputGroup = styled.form`
     margin: 10px;
 `;
 
@@ -28,11 +28,12 @@ export const QuizSetupForm = () => {
     const {
         categories,
         difficulties,
-        maxProblemCount,
+        maxProblems,
         quizSetupQueries,
         onCategoryChange,
         onDifficultyChange,
-        onProblemCountChange,
+        onProblemsChange,
+        onGameStart,
     } = useContext(QuizSetupContext);
 
     return (
@@ -54,14 +55,14 @@ export const QuizSetupForm = () => {
                 />
             </InputGroup>
             <InputGroup>
-                <Label text={`Problem Count (Max: ${maxProblemCount || 'Loading...'})`} />
+                <Label text={`Problems (Max: ${maxProblems || 'Loading...'})`} />
                 <NumberInput
-                    value={String(quizSetupQueries.problemCount)}
-                    disabled={!maxProblemCount}
-                    onChange={(value) => onProblemCountChange(value ? parseInt(value) : 0)}
+                    value={String(quizSetupQueries.problems)}
+                    disabled={!maxProblems}
+                    onChange={(value) => onProblemsChange(value ? parseInt(value) : 0)}
                 />
             </InputGroup>
-            <StartButton />
+            <StartButton onClick={onGameStart} />
         </Container>
     );
 };
