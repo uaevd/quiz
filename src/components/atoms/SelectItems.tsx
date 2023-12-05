@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 
-import { OptionItem } from 'types/OptionItem';
+import { OptionItem } from 'interfaces/OptionItem';
 
 const Select = styled.select`
     box-sizing: border-box;

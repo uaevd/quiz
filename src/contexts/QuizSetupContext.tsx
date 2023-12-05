@@ -1,12 +1,12 @@
 import { useState, useEffect, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { OptionItem } from 'types/OptionItem';
+import { OptionItem } from 'interfaces/OptionItem';
 
 interface Context {
     readonly categories: ReadonlyArray<OptionItem>;
     readonly difficulties: ReadonlyArray<OptionItem>;
-    readonly maxProblems: number;
+    readonly maxProblems?: number;
     readonly quizSetupQueries: {
         readonly category: string;
         readonly difficulty: string;
@@ -22,7 +22,7 @@ interface Context {
 export const QuizSetupContext = createContext<Context>({
     categories: [],
     difficulties: [],
-    maxProblems: 0,
+    maxProblems: undefined,
     quizSetupQueries: {
         category: '',
         difficulty: '',
@@ -50,7 +50,7 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
         { value: 'medium', label: 'Medium' },
         { value: 'hard', label: 'Hard' },
     ];
-    const [maxProblems, setMaxProblems] = useState(0);
+    const [maxProblems, setMaxProblems] = useState<number | undefined>();
     const [quizSetupQueries, setQuizSetupQueries] = useState({
         category: '',
         difficulty: '',
@@ -114,7 +114,7 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
         } else {
             setMaxProblems(50);
         }
-        return () => setMaxProblems(0);
+        return () => setMaxProblems(undefined);
     }, [quizSetupQueries.category, quizSetupQueries.difficulty]);
 
     const onCategoryChange = (value: string) =>
@@ -125,6 +125,10 @@ export const QuizSetupContextProvider = ({ children }: Props) => {
         setQuizSetupQueries({ ...quizSetupQueries, problems: value });
     const onGameStart = () => {
         const { category, difficulty, problems } = quizSetupQueries;
+        if (maxProblems === undefined) {
+            alert('Max Problems Loading!');
+            return;
+        }
         if (problems <= 0 || problems > maxProblems) {
             alert(`Problems Must Be from 1 to ${maxProblems}`);
             return;
