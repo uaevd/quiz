@@ -1,7 +1,7 @@
 import { useState, useEffect, createContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { OptionItem } from 'types/OptionItem';
+import { OptionItem } from 'interfaces/OptionItem';
 
 interface Context {
     readonly categories: ReadonlyArray<OptionItem>;
