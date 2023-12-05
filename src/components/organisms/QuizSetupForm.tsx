@@ -7,7 +7,7 @@ import { SelectItems } from 'components/atoms/SelectItems';
 import { StartButton } from 'components/atoms/StartButton';
 import { QuizSetupContext } from 'contexts/QuizSetupContext';
 
-const Container = styled.div`
+const Container = styled.form`
     align-items: stretch;
     background-color: #fff;
     border-radius: 20px;
@@ -20,7 +20,7 @@ const Container = styled.div`
     padding: 40px;
 `;
 
-const InputGroup = styled.form`
+const InputGroup = styled.div`
     margin: 10px;
 `;
 
@@ -37,7 +37,7 @@ export const QuizSetupForm = () => {
     } = useContext(QuizSetupContext);
 
     return (
-        <Container>
+        <Container onSubmit={(e) => e.preventDefault()}>
             <InputGroup>
                 <Label text="Category" />
                 <SelectItems
